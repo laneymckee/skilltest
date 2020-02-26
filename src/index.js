@@ -6,10 +6,12 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 
 const news = (state = [], action) => {
-   if (action.type === 'SET_NEWS') {
-      return action.payload;
+   switch (action.type) {
+      case 'SET_NEWS':
+         return action.payload;
+      default:
+         return state;
    }
-   return state;
 };
 
 const storeInstance = createStore(

@@ -7,7 +7,7 @@ class Story extends Component {
       author: '',
       time: '',
       url: ''
-   }
+   };
 
    componentDidMount() {
       this.getStory(this.props.story);
@@ -17,28 +17,25 @@ class Story extends Component {
       axios
          .get(`/api/story/${id}`)
          .then(response => {
-            console.log(response.data);
             this.setState({
                title: response.data.title,
                author: response.data.by,
                time: this.formatTime(response.data.time),
                url: response.data.url
             });
-            console.log(this.state);
-            
          })
          .catch(err => {
             console.log(err);
          });
-   } 
+   }
 
    formatTime(time) {
       let unix_timestamp = time;
 
       var date = new Date(unix_timestamp * 1000);
       var hours = date.getHours();
-      var minutes = "0" + date.getMinutes();
-      var seconds = "0" + date.getSeconds();
+      var minutes = '0' + date.getMinutes();
+      var seconds = '0' + date.getSeconds();
 
       var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
@@ -50,9 +47,9 @@ class Story extends Component {
          <div key={this.props.story} className="Story">
             <a href={this.state.url}>
                <h2>{this.state.title}</h2>
+            </a>
             <h3>{this.state.author}</h3>
             <p>{this.state.time}</p>
-            </a>
          </div>
       );
    }

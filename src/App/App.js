@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import BottomScrollListener from 'react-bottom-scroll-listener';
+
 //STYLING IMPORTS
 import './App.css';
 
@@ -10,11 +12,11 @@ import Story from '../Story/Story';
 
 class App extends Component {
    state = {
-      stories: [],
-      currentFeedLength: 20
+      feedLength: 20
    };
 
    componentDidMount() {
+      setInterval(this.getNews.bind(this), 5000);
       this.getNews();
    }
 
@@ -32,8 +34,15 @@ class App extends Component {
          });
    }
 
+   handleBottomReached() {
+      // this.setState({
+      //    feedLength: this.state.feedLength + 10
+      // });
+      console.log('Queuing up more stories...');
+   }
+
    render() {
-      let storyFeed = this.props.news.slice(0, this.state.currentFeedLength).map((story, i) => {
+      let storyFeed = this.props.news.slice(0, this.state.feedLength).map((story, i) => {
          return <Story key={i} story={story} />;
       });
 
@@ -42,7 +51,13 @@ class App extends Component {
             <header>
                <h1>HackerNews Feed</h1>
             </header>
-            <div className="Feed">{storyFeed}</div>
+            <BottomScrollListener onBottom={this.handleBottomReached}>
+               {scrollRef => (
+                  <div ref={scrollRef} className="Feed">
+                     {storyFeed}
+                  </div>
+               )}
+            </BottomScrollListener>
          </div>
       );
    }
