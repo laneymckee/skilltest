@@ -12,17 +12,9 @@ const news = (state = [], action) => {
    return state;
 };
 
-const currentFeed = (state = [], action) => {
-   if (action.type === 'SET_CURRENT_FEED') {
-      return action.payload;
-   }
-   return state;
-};
-
 const storeInstance = createStore(
    combineReducers({
-      news,
-      currentFeed
+      news
    }),
    applyMiddleware(logger)
 );
