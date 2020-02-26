@@ -25,30 +25,3 @@ Try to timebox your work to approximately 60 minutes.
 1. How did you decide what to work on in order to meet the time constraint?
 1. What was your decision making process for your code organization?
 1. If you had more time, what would you have implemented?
-
-# Original HTML File
-```
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>WHCC Hacker News Reader</title>
-    <script type="text/javascript">
-        function getStories() {
-            fetch('https://hacker-news.firebaseio.com/v0/newstories.json')
-                .then((response) => {
-                    return response.json();
-                })
-                .then((myJson) => {
-                    document.getElementById("stories").innerHTML = myJson;
-                });
-        }
-        getStories();
-    </script>
-</head>
-<body>
-    <h1>WHCC Hacker News Reader</h1>
-    <div id="stories"></div>
-</body>
-</html>
-```
